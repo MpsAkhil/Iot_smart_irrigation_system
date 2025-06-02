@@ -24,7 +24,7 @@ const Time = () => {
                 throw new Error('Please fill in all fields');
             }
 
-            const response = await fetch('http://localhost:5000/predict-motor', {
+            const response = await fetch('https://dlhofls0c3ep8.cloudfront.net/predict-motor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const Time = () => {
                 throw new Error('Please fill in all fields');
             }
 
-            const response = await fetch('http://localhost:5000/predict-motor-2', {
+            const response = await fetch('https://dlhofls0c3ep8.cloudfront.net/predict-motor-2', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

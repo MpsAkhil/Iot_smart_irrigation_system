@@ -68,11 +68,20 @@ const TimeSeriesChart = ({ data }) => {
       x: {
         type: 'time',
         time: {
-          unit: 'minute'
+          unit: 'hour',
+          displayFormats: {
+            hour: 'MMM d, HH:mm'
+          },
+          tooltipFormat: 'MMM d, HH:mm'
         },
         title: {
           display: true,
           text: 'Timestamp'
+        },
+        ticks: {
+          source: 'auto',
+          autoSkip: true,
+          maxTicksLimit: 8
         }
       },
       y: {

@@ -65,5 +65,16 @@ yarn-debug.log*
 yarn-error.log*
 
 # Local files
+/backend/nodejs-eb-app/firebase-key.json
 /backend/sensor_data2.xlsx
-/backend/firebase-Key.json 
+/backend/firebase-Key.json
+
+# Firebase keys and credentials
+**/firebase-key.json
+**/firebase-credentials.json
+**/firebase-admin.json
+**/firebase-service-account.json
+**/*.key.json
+**/*.credentials.json
+**/*.admin.json
+**/*.service-account.json 

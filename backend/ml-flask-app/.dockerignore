@@ -1,0 +1,4 @@
+.env
+.git
+.ebextensions
+*.pkl  # Exclude if already copied, but we need them so don't ignore

@@ -10,18 +10,53 @@ A smart irrigation system that uses IoT sensors to monitor and control water usa
 - Firebase integration for data storage
 - MQTT communication for sensor data
 - Machine Learning models for predictions
+- AWS CloudWatch for HTTPS to HTTP conversion
+- Docker containerization for ML service
 
-## Project Structure
+## Project Architecture
 
 ```
-├── frontend/               # React frontend application
-├── backend/               # Node.js backend server
+├── frontend/               # React frontend application (Firebase Hosting)
+├── backend/               # Node.js backend server (AWS Elastic Beanstalk)
 │   ├── index.js          # Main backend server
-│   └── ml-service/       # Python ML service
+│   └── ml-service/       # Python ML service (Docker on AWS Elastic Beanstalk)
 │       ├── app.py        # Flask server for ML predictions
+│       ├── Dockerfile    # Docker configuration for ML service
 │       └── requirements.txt
-└── render.yaml           # Render.com deployment configuration
+└── aws/                  # AWS configuration files
+    └── cloudwatch/       # CloudWatch configuration for HTTPS to HTTP conversion
 ```
+
+## Deployment Architecture
+
+### Frontend (Firebase Hosting)
+- Hosted on Firebase Hosting
+- Serves HTTPS requests
+- Communicates with backend through AWS CloudWatch
+
+### Backend (AWS Elastic Beanstalk)
+1. Node.js Environment (node-env)
+   - Platform: Node.js 22 on Linux
+   - Handles HTTP requests
+   - Routes prediction requests to ML service
+   - Communicates with Firebase
+
+2. ML Service Environment (Ml-env-2)
+   - Platform: Docker
+   - Hosts Python Flask application
+   - Provides prediction endpoints
+   - Containerized using Docker
+
+### AWS CloudWatch
+- Converts HTTPS requests from Firebase to HTTP
+- Routes requests to appropriate Elastic Beanstalk environment
+- Handles request/response transformation
+
+## Request Flow
+1. Frontend (HTTPS) → AWS CloudWatch
+2. CloudWatch → Node.js Environment (HTTP)
+3. Node.js → ML Service (for predictions)
+4. Response flows back through the same path
 
 ## Setup Instructions
 
@@ -36,7 +71,7 @@ A smart irrigation system that uses IoT sensors to monitor and control water usa
    ```
 3. Create .env file with:
    ```
-   REACT_APP_API_URL=https://your-backend-url.com
+   REACT_APP_API_URL=https://dlhofls0c3ep8.cloudfront.net
    ```
 4. Start development server:
    ```bash
@@ -66,14 +101,33 @@ A smart irrigation system that uses IoT sensors to monitor and control water usa
    ```bash
    pip install -r requirements.txt
    ```
-3. Start Flask server:
+3. Build Docker image:
    ```bash
-   python app.py
+   docker build -t ml-service .
+   ```
+4. Run Docker container:
+   ```bash
+   docker run -p 5001:5001 ml-service
    ```
 
-## Deployment
+## AWS Deployment
 
-The project is configured for deployment on Render.com. The `render.yaml` file contains the necessary configuration for both the backend and ML service.
+### Node.js Environment (node-env)
+1. Create Elastic Beanstalk environment
+2. Select Node.js 22 platform
+3. Deploy backend code
+4. Configure environment variables
+
+### ML Service Environment (Ml-env-2)
+1. Create Elastic Beanstalk environment
+2. Select Docker platform
+3. Deploy Docker image
+4. Configure environment variables
+
+### CloudWatch Configuration
+1. Set up HTTPS to HTTP conversion
+2. Configure routing rules
+3. Set up request/response transformation
 
 ## Environment Variables
 

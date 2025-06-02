@@ -130,15 +130,22 @@ const SensorPrediction = ({ data, models }) => {
     },
     scales: {
       x: {
+        type: 'time',
+        time: {
+          unit: 'hour',
+          displayFormats: {
+            hour: 'MMM d, HH:mm'
+          },
+          tooltipFormat: 'MMM d, HH:mm'
+        },
         title: {
           display: true,
           text: 'Timestamp',
         },
         ticks: {
-          callback: (value) => {
-            const date = new Date(value);
-            return date.toLocaleDateString();
-          }
+          source: 'auto',
+          autoSkip: true,
+          maxTicksLimit: 8
         }
       },
       y: {
