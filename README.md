@@ -1,7 +1,7 @@
 # IoT Smart Irrigation System
 
 A smart irrigation system that uses IoT sensors to monitor and control water usage in agricultural fields. The system is fully deployed on AWS and uses ESP32 with 4G GSM module for real-time monitoring and alerts.
-
+LIVE DEMO----"https://iot2-744e6.web.app/"
 ## Key Features
 
 - Real-time sensor data monitoring (Temperature, Humidity, Soil Moisture, Water Level)
